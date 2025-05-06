@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Torneo Naciones Unidas 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0 }
+    body { font-family:'Quicksand',sans-serif; background:#f2f2f2; color:#333 }
+    header { background:#6d0019; padding:20px; position:relative; text-align:center }
+    header img { height:60px; position:absolute; top:15px; left:20px }
+    header h1 { color:#fff; font-family:'Lobster',cursive; font-size:2.5rem }
+    #loginWidget { position:absolute; top:20px; right:20px; display:flex; gap:5px }
+    #loginWidget input { width:80px; padding:4px; border:none; border-radius:4px }
+    #loginWidget button { padding:4px 8px; background:#a50030; color:#fff; border:none; border-radius:4px; cursor:pointer }
+    #logoutBtn { display:none; margin-left:10px; background:#444 }
+    nav { display:flex; justify-content:center; background:linear-gradient(90deg,#800,#b00030); flex-wrap:wrap }
+    nav button { background:transparent; border:none; color:#fff; padding:14px 24px; font-size:1rem; cursor:pointer; font-weight:600; transition:color .3s; position:relative }
+    nav button:hover, nav button.active { color:#ffdd57 }
+    nav button:not(:last-child)::after { content:'|'; position:absolute; right:0; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.5) }
+    section { display:none; padding:20px; animation:fadeIn .3s ease-in }
+    section.active { display:block }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .grid-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:20px }
+    .big-card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:transform .3s,box-shadow .3s,border .3s }
+    .big-card:hover { transform:translateY(-6px); box-shadow:0 8px 20px rgba(0,0,0,0.2); border:4px solid #800 }
+    .big-card header { background:#800; color:#fff; padding:16px; font-size:1.1rem; font-weight:600 }
+    .big-card .body { padding:16px }
+    .big-card .body p, .big-card .body ul li { font-size:.95rem; line-height:1.5 }
+    .big-card .body ul { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px }
+    .big-card .body ul li { background:#f9f9f9; border:1px solid #ddd; border-radius:6px; padding:6px 8px }
+    .match-card { background:#fff; border-left:6px solid #800; border-radius:4px; padding:16px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1); display:flex; justify-content:space-between; align-items:center }
+    .match-card:hover { background:#fafafa }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:20px }
+    input, select, textarea { width:100%; padding:8px; margin:8px 0; border:1px solid #ccc; border-radius:4px }
+    button.submit-btn { background:#800; color:#fff; border:none; padding:10px 16px; border-radius:4px; cursor:pointer; transition:background .3s }
+    button.submit-btn:hover { background:#b00030 }
+    table { width:100%; border-collapse:collapse; margin-top:20px }
+    th,td { padding:12px; text-align:center }
+    th { background:#800; color:#fff }
+    tr:nth-child(even) td { background:#f9f9f9 }
+    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:20px }
+    figure { margin:0 }
+    figure img { width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.15); transition:transform .3s }
+    figure img:hover { transform:scale(1.03) }
+    figcaption { text-align:center; margin-top:4px; font-size:.9rem; color:#555 }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.jpeg" alt="Logo Colegio Naciones Unidas">
+    <h1>Torneo Naciones Unidas 2025</h1>
+    <div id="loginWidget">
+      <input id="user" placeholder="Usuario">
+      <input id="pass" type="password" placeholder="Clave">
+      <button id="btnLogin">OK</button>
+      <button id="logoutBtn">Salir</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="tab-button active" data-tab="inicio">Inicio</button>
+    <button class="tab-button" data-tab="fixture">Fixture</button>
+    <button class="tab-button" data-tab="carga" style="display:none">Carga</button>
+    <button class="tab-button" data-tab="resultados">Resultados</button>
+    <button class="tab-button" data-tab="mvp">Tabla MVP</button>
+    <button class="tab-button" data-tab="noticias">Noticias</button>
+    <button class="tab-button" data-tab="galeria">Galería</button>
+    <button class="tab-button" data-tab="jugadores">Jugadores</button>
+  </nav>
+
+  <section id="inicio" class="active">
+    <div class="grid-cards">
+      <div class="big-card" style="grid-column: span 2">
+        <header>Bienvenida</header>
+        <div class="body">
+          <p>Bienvenidos a la página del Torneo de Fútbol Escolar del Colegio Naciones Unidas, creado por los alumnos y acompañado por los directivos para reforzar el trabajo en equipo e impulsar el deporte.</p>
+        </div>
+      </div>
+      <div class="big-card">
+        <header>Eliminación Directa</header>
+        <div class="body">
+          <p>Competencia escolar en dos fases: Eliminación directa y Liga.</p>
+          <p>8 equipos, cuartos de final, semifinal y final. Partido único.</p>
+          <p><em>Miércoles 7 de mayo - 14:00 a 14:45</em></p>
+        </div>
+      </div>
+      <div class="big-card">
+        <header>Copa de Liga</header>
+        <div class="body">
+          <p>6 equipos, todos contra todos ida y vuelta (10 fechas).</p>
+          <p>Final con público entre los dos primeros.</p>
+          <p><em>Inicio estimado: Julio</em></p>
+        </div>
+      </div>
+      <div class="big-card" style="grid-column: span 2">
+        <header>Objetivos y Reglamento</header>
+        <div class="body">
+          <ul>
+            <li>Fomentar espíritu deportivo</li>
+            <li>Trabajo en equipo</li>
+            <li>Rotación obligatoria (5–7 jugadores)</li>
+            <li>Sistema de tarjetas (A/Azul/R)</li>
+            <li>Tolerancia 10 minutos</li>
+            <li>Uniforme obligatorio</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fixture">
+    <h2>Próximos Partidos</h2>
+    <div id="proximosPartidos"></div>
+  </section>
+
+  <section id="carga">
+    <h2>Carga de Partido</h2>
+    <form id="formPartido">
+      <div class="grid2">
+        <div><label>Local<input id="equipoLocal" required></label></div>
+        <div><label>Visita<input id="equipoVisita" required></label></div>
+        <div><label>Resultado<input id="resultado" placeholder="Ej: 2-1" required></label></div>
+      </div>
+      <h4>Valla Invicta (Apellido,Apellido)</h4>
+      <textarea id="vallaInvicta" rows="2" placeholder="Pérez,Gómez"></textarea>
+      <h4>Goles (Apellido,Apellido)</h4>
+      <textarea id="goles" rows="2" placeholder="Pérez,Gómez"></textarea>
+      <h4>Asistencias (Apellido,Apellido)</h4>
+      <textarea id="asistencias" rows="2" placeholder="López,Martínez"></textarea>
+      <h4>Tarjetas (Apellido-Tipo,Apellido-Tipo)</h4>
+      <textarea id="tarjetas" rows="2" placeholder="García-R,Suárez-R"></textarea>
+      <button type="submit" class="submit-btn">Guardar</button>
+    </form>
+  </section>
+
+  <section id="resultados">
+    <h2>Resultados Anteriores</h2>
+    <div id="listaPartidos"></div>
+    <h2>Tabla de Posiciones</h2>
+    <table>
+      <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>PTS</th></tr></thead>
+      <tbody id="tablaPos"></tbody>
+    </table>
+  </section>
+
+  <section id="mvp">
+    <h2>Tabla MVP</h2>
+    <table>
+      <thead><tr><th>Jugador</th><th>Equipo</th><th>G</th><th>A</th><th>T</th><th>V</th><th>Pts</th></tr></thead>
+      <tbody id="tablaMVP"></tbody>
+    </table>
+  </section>
+
+  <section id="noticias">
+    <div class="big-card">
+      <header>Noticias</header>
+      <div class="body"><p>Próximamente novedades y comunicados oficiales.</p></div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <h2>Galería del Torneo</h2>
+    <div class="gallery">
+      <figure>
+        <img src="imagenespartido1.jpg" alt="Partido 1">
+        <figcaption>Sexto campeones 2024</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenespartido2.jpeg" alt="Partido 2">
+        <figcaption>El equipo de Primero celebrando la victoria sobre Sexto
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="imagenespartido3.jpeg" alt="Equipo">
+        <figcaption>Quinto vs Sexto</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenesfestejo.jpeg" alt="Festejo">
+        <figcaption>Tirando magia...</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="jugadores">
+    <h2>Listado de Jugadores</h2>
+    <table>
+      <thead><tr><th>Jugador</th><th>Equipo</th></tr></thead>
+      <tbody id="tablaJugadores"></tbody>
+    </table>
+  </section>
+
+  <script>
+    const tabs = document.querySelectorAll('nav .tab-button');
+    const secs = document.querySelectorAll('section[id]');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      secs.forEach(s => s.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+    }));
+
+    document.getElementById('btnLogin').onclick = () => {
+      const u = document.getElementById('user').value;
+      const p = document.getElementById('pass').value;
+      if (u==='admin'&&p==='140690') {
+        document.querySelector('[data-tab="carga"]').style.display='block';
+        document.getElementById('logoutBtn').style.display='inline-block';
+        alert('Bienvenido, Admin');
+      } else alert('Usuario o clave incorrecta');
+    };
+    document.getElementById('logoutBtn').onclick = () => {
+      document.querySelector('[data-tab="carga"]').style.display='none';
+      document.getElementById('logoutBtn').style.display='none';
+      alert('Sesión cerrada');
+    };
+
+    const jugadoresIniciales = [
+      { equipo: "Primero", nombre: "Franco Britez" },
+      { equipo: "Primero", nombre: "Luca Silva" },
+      { equipo: "Primero", nombre: "Santino Albarracín" },
+      { equipo: "Primero", nombre: "Thiago Nieto" },
+      { equipo: "Primero", nombre: "Bruno Vera" },
+      { equipo: "Primero", nombre: "Thiago Solis" },
+      { equipo: "Primero", nombre: "Luca Sosa" },
+      { equipo: "Primero", nombre: "Facundo Ojeda" },
+      { equipo: "Primero", nombre: "Santino Batista" },
+      { equipo: "Segundo", nombre: "Agustín Velasquez" },
+      { equipo: "Segundo", nombre: "Nehuen Gigena" },
+      { equipo: "Segundo", nombre: "Santino Arufe" },
+      { equipo: "Segundo", nombre: "Benjamin Protti" },
+      { equipo: "Segundo", nombre: "Thiago Guayama" },
+      { equipo: "Segundo", nombre: "Santino Orellano" },
+      { equipo: "Segundo", nombre: "Bautista Bussu" },
+      { equipo: "Segundo", nombre: "Adriel Villalba" },
+      { equipo: "Segundo", nombre: "Valentino Pogonza" },
+      { equipo: "Segundo", nombre: "Nahuel Dávalos" },
+      { equipo: "Segundo", nombre: "Facundo Gutiérrez" },
+      { equipo: "Segundo", nombre: "Benicio Cuspodus" },
+      { equipo: "Segundo", nombre: "Tiziano Duarte" },
+      { equipo: "Tercero", nombre: "Valentino Godoy" },
+      { equipo: "Tercero", nombre: "Julian Godoy" },
+      { equipo: "Tercero", nombre: "Santiago González" },
+      { equipo: "Tercero", nombre: "Thiago Giménez" },
+      { equipo: "Tercero", nombre: "Santiago Esparza" },
+      { equipo: "Tercero", nombre: "Sebastián Godoy" },
+      { equipo: "Cuarto", nombre: "Gabriel Ochicua" },
+      { equipo: "Cuarto", nombre: "Lautaro Lezcano" },
+      { equipo: "Cuarto", nombre: "Fabrizio Garay" },
+      { equipo: "Cuarto", nombre: "Kevin Flores" },
+      { equipo: "Cuarto", nombre: "Kiara Sotelo" },
+      { equipo: "Cuarto", nombre: "Kevin González" },
+      { equipo: "Cuarto", nombre: "Valentín Ovejero" },
+      { equipo: "Quinto", nombre: "Renzo Figueredo" },
+      { equipo: "Quinto", nombre: "Genaro Chumbita" },
+      { equipo: "Quinto", nombre: "Gianluca Chumbita" },
+      { equipo: "Quinto", nombre: "Benjamin Landriel" },
+      { equipo: "Quinto", nombre: "Joaquín Ybañez" },
+      { equipo: "Quinto", nombre: "Agustín Romero" },
+      { equipo: "Quinto", nombre: "Emiliano Casafus" },
+      { equipo: "Quinto", nombre: "Thiago Coria" },
+      { equipo: "Sexto", nombre: "Juan Colman" },
+      { equipo: "Sexto", nombre: "Lautaro Leiva" },
+      { equipo: "Sexto", nombre: "Thiago Maldonado" },
+      { equipo: "Sexto", nombre: "Tobías Silveira" },
+      { equipo: "Sexto", nombre: "Renzo Cejas" },
+      { equipo: "Sexto", nombre: "Pablo Buse" }
+    ];
+
+    if (!localStorage.getItem('mvpData')) {
+      const init = {};
+      jugadoresIniciales.forEach(j => {
+        const ap = j.nombre.split(' ').pop();
+        init[ap] = { equipo: j.equipo, g:0, a:0, t:0, v:0 };
+      });
+      localStorage.setItem('mvpData', JSON.stringify(init));
+    }
+    let mvpData = JSON.parse(localStorage.getItem('mvpData'));
+    let partidos = JSON.parse(localStorage.getItem('partidos'))||[];
+
+    function renderFixture() {
+      const cont = document.getElementById('proximosPartidos');
+      cont.innerHTML = `
+        <div class="match-card"><span>Leones vs Halcones</span><span>Fecha: 15/05</span><span>Hora: 15:00</span></div>
+        <div class="match-card"><span>Jaguares vs Cóndores</span><span>Fecha: 16/05</span><span>Hora: 16:00</span></div>
+        <div class="match-card"><span>Pumas vs Águilas</span><span>Fecha: 17/05</span><span>Hora: 17:00</span></div>
+      `;
+    }
+
+    function renderResultados(){
+      const list = document.getElementById('listaPartidos');
+      const tbPos = document.getElementById('tablaPos');
+      list.innerHTML=''; tbPos.innerHTML='';
+      const acc={};
+      partidos.forEach(p=>{
+        list.innerHTML+=`<div class="match-card"><span>${p.local} ${p.res} ${p.visita}</span><span>Valla: ${p.valla? 'Sí':'No'}</span></div>`;
+        [p.local,p.visita].forEach(eq=>{
+          if(!acc[eq]) acc[eq]={PJ:0,PG:0,PE:0,PP:0,GF:0,GC:0,PTS:0};
+          acc[eq].PJ++;
+        });
+        const [gl,gv]=p.res.split('-').map(Number);
+        acc[p.local].GF+=gl; acc[p.local].GC+=gv;
+        acc[p.visita].GF+=gv; acc[p.visita].GC+=gl;
+        if(gl>gv){ acc[p.local].PG++; acc[p.local].PTS+=3; acc[p.visita].PP++; }
+        else if(gl<gv){ acc[p.visita].PG++; acc[p.visita].PTS+=3; acc[p.local].PP++; }
+        else{ acc[p.local].PE++; acc[p.visita].PE++; acc[p.local].PTS++; acc[p.visita].PTS++; }
+      });
+      Object.entries(acc).sort((a,b)=>b[1].PTS-a[1].PTS).forEach(([eq,d])=>{
+        tbPos.innerHTML+=`<tr><td>${eq}</td><td>${d.PJ}</td><td>${d.PG}</td><td>${d.PE}</td><td>${d.PP}</td><td>${d.GF}</td><td>${d.GC}</td><td>${d.PTS}</td></tr>`;
+      });
+    }
+
+    function renderMVP(){
+      const tb=document.getElementById('tablaMVP');
+      tb.innerHTML='';
+      Object.entries(mvpData)
+        .map(([jug,d])=>({jug, equipo:d.equipo, g:d.g, a:d.a, t:d.t, v:d.v, pts:d.g*5 + d.a*3 - d.t*2 + d.v*5}))
+        .sort((a,b)=>b.pts-a.pts)
+        .forEach(u=>{
+          tb.innerHTML+=`<tr><td>${u.jug}</td><td>${u.equipo}</td><td>${u.g}</td><td>${u.a}</td><td>${u.t}</td><td>${u.v}</td><td>${u.pts}</td></tr>`;
+        });
+    }
+
+    function renderJugadores(){
+      const tbl=document.getElementById('tablaJugadores');
+      tbl.innerHTML='';
+      jugadoresIniciales.forEach(j=>{
+        tbl.innerHTML+=`<tr><td>${j.nombre}</td><td>${j.equipo}</td></tr>`;
+      });
+    }
+
+    document.getElementById('formPartido').addEventListener('submit', e=>{
+      e.preventDefault();
+      const local = document.getElementById('equipoLocal').value.trim();
+      const visita = document.getElementById('equipoVisita').value.trim();
+      const res = document.getElementById('resultado').value.trim();
+      const vList = document.getElementById('vallaInvicta').value.split(',').map(x=>x.trim()).filter(x=>x);
+      const gList = document.getElementById('goles').value.split(',').map(x=>x.trim()).filter(x=>x);
+      const aList = document.getElementById('asistencias').value.split(',').map(x=>x.trim()).filter(x=>x);
+      const tList = document.getElementById('tarjetas').value.split(',').map(x=>x.trim()).filter(x=>x);
+
+      partidos.push({ local, visita, res, valla: vList.join(','), goles:gList.join(','), asistencias:aList.join(','), tarjetas:tList.join(',') });
+      localStorage.setItem('partidos', JSON.stringify(partidos));
+
+      vList.forEach(j=>{ if(mvpData[j]) mvpData[j].v++; });
+      gList.forEach(j=>{ if(mvpData[j]) mvpData[j].g++; });
+      aList.forEach(j=>{ if(mvpData[j]) mvpData[j].a++; });
+      tList.forEach(item=>{
+        const [jn,tipo]=item.split('-');
+        if(tipo==='R' && mvpData[jn]) mvpData[jn].t++;
+      });
+      localStorage.setItem('mvpData', JSON.stringify(mvpData));
+
+      renderResultados();
+      renderMVP();
+      alert('Partido guardado y MVP actualizado');
+      e.target.reset();
+    });
+
+    renderFixture();
+    renderResultados();
+    renderMVP();
+    renderJugadores();
+  </script>
+</body>
+</html>
