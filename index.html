@@ -282,16 +282,33 @@
       { equipo: "Sexto", nombre: "Pablo Buse" }
     ];
 
-    if (!localStorage.getItem('mvpData')) {
-      const init = {};
-      jugadoresIniciales.forEach(j => {
-        const ap = j.nombre.split(' ').pop();
-        init[ap] = { equipo: j.equipo, g:0, a:0, t:0, v:0 };
-      });
-      localStorage.setItem('mvpData', JSON.stringify(init));
-    }
-    let mvpData = JSON.parse(localStorage.getItem('mvpData'));
-    let partidos = JSON.parse(localStorage.getItem('partidos'))||[];
+let mvpData = {};
+let partidos = [];
+    fetch('data.json')
+  .then(res => {
+    if (!res.ok) throw new Error('No se pudo cargar data.json');
+    return res.json();
+  })
+  .then(data => {
+    partidos = data.partidos;
+    mvpData  = data.mvpData;
+    // Ahora que tenemos los datos, pintamos todo:
+    renderFixture();
+    renderResultados();
+    renderMVP();
+    renderJugadores();
+  })
+  .catch(err => {
+    console.error(err);
+    // En caso de error, podemos inicializar vacíos para evitar fallos:
+    partidos = [];
+    mvpData = {};
+    renderFixture();
+    renderResultados();
+    renderMVP();
+    renderJugadores();
+  });
+
 
     function renderFixture() {
       const cont = document.getElementById('proximosPartidos');
@@ -376,11 +393,6 @@
       alert('Partido guardado y MVP actualizado');
       e.target.reset();
     });
-
-    renderFixture();
-    renderResultados();
-    renderMVP();
-    renderJugadores();
   </script>
 </body>
 </html>
