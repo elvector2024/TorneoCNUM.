@@ -156,7 +156,7 @@
   <section id="noticias">
     <div class="big-card">
       <header>Noticias</header>
-      <div class="body"><p>Hoy 08/05 Segundo vence a Sexto con polemico arbitraje, ampliaremos!.</p></div>
+      <div class="body"><p>Hoy 08/05 Segundo vence a Sexto con polémico arbitraje, ampliaremos!.</p></div>
     </div>
   </section>
 
@@ -169,16 +169,15 @@
       </figure>
       <figure>
         <img src="imagenespartido2.jpeg" alt="Partido 2">
-        <figcaption>El equipo de Primero celebrando la victoria sobre Sexto primaria
-        </figcaption>
+        <figcaption>El equipo de Primero celebrando la victoria sobre Sexto primaria</figcaption>
       </figure>
       <figure>
         <img src="imagenespartido3.jpeg" alt="Equipo">
-        <figcaption>Alexander Desseff,Mejor arquero del torneo final 2024</figcaption>
+        <figcaption>Alexander Desseff, Mejor arquero del torneo final 2024</figcaption>
       </figure>
       <figure>
         <img src="imagenesfestejo.jpeg" alt="Festejo">
-        <figcaption>Benjamin Landriel,Mejor jugador del torneo inicial 2024</figcaption>
+        <figcaption>Benjamin Landriel, Mejor jugador del torneo inicial 2024</figcaption>
       </figure>
     </div>
   </section>
@@ -192,6 +191,7 @@
   </section>
 
   <script>
+    // Pestañas y login
     const tabs = document.querySelectorAll('nav .tab-button');
     const secs = document.querySelectorAll('section[id]');
     tabs.forEach(t => t.addEventListener('click', () => {
@@ -200,7 +200,6 @@
       t.classList.add('active');
       document.getElementById(t.dataset.tab).classList.add('active');
     }));
-
     document.getElementById('btnLogin').onclick = () => {
       const u = document.getElementById('user').value;
       const p = document.getElementById('pass').value;
@@ -209,27 +208,24 @@
         document.getElementById('logoutBtn').style.display='inline-block';
         alert('Bienvenido, Admin');
         if (!document.getElementById('btnReset')) {
-      const btnReset = document.createElement('button');
-      btnReset.id = 'btnReset';
-      btnReset.textContent = 'Vaciar Storage';
-      document.body.appendChild(btnReset);
-      btnReset.addEventListener('click', () => {
-        localStorage.clear();
-        window.location.reload();
-      });
-    }
+          const btnReset = document.createElement('button');
+          btnReset.id = 'btnReset';
+          btnReset.textContent = 'Vaciar Storage';
+          document.body.appendChild(btnReset);
+          btnReset.addEventListener('click', () => {
+            localStorage.clear();
+            window.location.reload();
+          });
+        }
       } else alert('Usuario o clave incorrecta');
     };
     document.getElementById('logoutBtn').onclick = () => {
       document.querySelector('[data-tab="carga"]').style.display='none';
       document.getElementById('logoutBtn').style.display='none';
       alert('Sesión cerrada');
-      document.getElementById('btnReset').addEventListener('click', () => {
-       localStorage.clear();              // limpia todo
-      window.location.reload();          // recarga página
-});
     };
 
+    // Datos iniciales
     const jugadoresIniciales = [
       { equipo: "Primero", nombre: "Franco Britez" },
       { equipo: "Primero", nombre: "Luca Silva" },
@@ -282,33 +278,48 @@
       { equipo: "Sexto", nombre: "Pablo Buse" }
     ];
 
-let mvpData = {};
-let partidos = [];
-    fetch('data.json')
-  .then(res => {
-    if (!res.ok) throw new Error('No se pudo cargar data.json');
-    return res.json();
-  })
-  .then(data => {
-    partidos = data.partidos;
-    mvpData  = data.mvpData;
-    // Ahora que tenemos los datos, pintamos todo:
-    renderFixture();
-    renderResultados();
-    renderMVP();
-    renderJugadores();
-  })
-  .catch(err => {
-    console.error(err);
-    // En caso de error, podemos inicializar vacíos para evitar fallos:
-    partidos = [];
-    mvpData = {};
-    renderFixture();
-    renderResultados();
-    renderMVP();
-    renderJugadores();
-  });
+    // Variables globales
+    let partidos, mvpData;
 
+    // Inicialización de datos
+    function initData() {
+      const sp = localStorage.getItem('partidos');
+      const sm = localStorage.getItem('mvpData');
+      if (sp && sm) {
+        partidos = JSON.parse(sp);
+        mvpData  = JSON.parse(sm);
+        onDataReady();
+      } else {
+        fetch('data.json')
+          .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(d => {
+            partidos = d.partidos;
+            mvpData  = d.mvpData;
+            localStorage.setItem('partidos', JSON.stringify(partidos));
+            localStorage.setItem('mvpData', JSON.stringify(mvpData));
+            onDataReady();
+          })
+          .catch(() => {
+            partidos = [];
+            mvpData = {};
+            jugadoresIniciales.forEach(j => {
+              const ap = j.nombre.split(' ').pop();
+              mvpData[ap] = { equipo:j.equipo, g:0,a:0,t:0,v:0 };
+            });
+            localStorage.setItem('partidos', JSON.stringify(partidos));
+            localStorage.setItem('mvpData', JSON.stringify(mvpData));
+            onDataReady();
+          });
+      }
+    }
+
+    function onDataReady() {
+      renderFixture();
+      renderResultados();
+      renderMVP();
+      renderJugadores();
+      setupFormListener();
+    }
 
     function renderFixture() {
       const cont = document.getElementById('proximosPartidos');
@@ -366,33 +377,38 @@ let partidos = [];
       });
     }
 
-    document.getElementById('formPartido').addEventListener('submit', e=>{
-      e.preventDefault();
-      const local = document.getElementById('equipoLocal').value.trim();
-      const visita = document.getElementById('equipoVisita').value.trim();
-      const res = document.getElementById('resultado').value.trim();
-      const vList = document.getElementById('vallaInvicta').value.split(',').map(x=>x.trim()).filter(x=>x);
-      const gList = document.getElementById('goles').value.split(',').map(x=>x.trim()).filter(x=>x);
-      const aList = document.getElementById('asistencias').value.split(',').map(x=>x.trim()).filter(x=>x);
-      const tList = document.getElementById('tarjetas').value.split(',').map(x=>x.trim()).filter(x=>x);
+    function setupFormListener() {
+      document.getElementById('formPartido').addEventListener('submit', e=>{
+        e.preventDefault();
+        const local = document.getElementById('equipoLocal').value.trim();
+        const visita = document.getElementById('equipoVisita').value.trim();
+        const res = document.getElementById('resultado').value.trim();
+        const vList = document.getElementById('vallaInvicta').value.split(',').map(x=>x.trim()).filter(x=>x);
+        const gList = document.getElementById('goles').value.split(',').map(x=>x.trim()).filter(x=>x);
+        const aList = document.getElementById('asistencias').value.split(',').map(x=>x.trim()).filter(x=>x);
+        const tList = document.getElementById('tarjetas').value.split(',').map(x=>x.trim()).filter(x=>x);
 
-      partidos.push({ local, visita, res, valla: vList.join(','), goles:gList.join(','), asistencias:aList.join(','), tarjetas:tList.join(',') });
-      localStorage.setItem('partidos', JSON.stringify(partidos));
+        partidos.push({ local, visita, res, valla: vList.join(','), goles:gList.join(','), asistencias:aList.join(','), tarjetas:tList.join(',') });
+        vList.forEach(j=> mvpData[j] && mvpData[j].v++);
+        gList.forEach(j=> mvpData[j] && mvpData[j].g++);
+        aList.forEach(j=> mvpData[j] && mvpData[j].a++);
+        tList.forEach(item=>{
+          const [jn,tipo]=item.split('-');
+          if(tipo==='R' && mvpData[jn]) mvpData[jn].t++;
+        });
 
-      vList.forEach(j=>{ if(mvpData[j]) mvpData[j].v++; });
-      gList.forEach(j=>{ if(mvpData[j]) mvpData[j].g++; });
-      aList.forEach(j=>{ if(mvpData[j]) mvpData[j].a++; });
-      tList.forEach(item=>{
-        const [jn,tipo]=item.split('-');
-        if(tipo==='R' && mvpData[jn]) mvpData[jn].t++;
+        localStorage.setItem('partidos', JSON.stringify(partidos));
+        localStorage.setItem('mvpData', JSON.stringify(mvpData));
+
+        renderResultados();
+        renderMVP();
+        alert('Partido guardado y MVP actualizado');
+        e.target.reset();
       });
-      localStorage.setItem('mvpData', JSON.stringify(mvpData));
+    }
 
-      renderResultados();
-      renderMVP();
-      alert('Partido guardado y MVP actualizado');
-      e.target.reset();
-    });
+    // Arranque
+    initData();
   </script>
 </body>
 </html>
