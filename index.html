@@ -165,20 +165,20 @@
     <div class="gallery">
       <figure>
         <img src="imagenespartido1.jpg" alt="Partido 1">
-        <figcaption>Sexto campeones 2024</figcaption>
+        <figcaption>Sexto campeones invictos 2024</figcaption>
       </figure>
       <figure>
         <img src="imagenespartido2.jpeg" alt="Partido 2">
-        <figcaption>El equipo de Primero celebrando la victoria sobre Sexto
+        <figcaption>El equipo de Primero celebrando la victoria sobre Sexto primaria
         </figcaption>
       </figure>
       <figure>
         <img src="imagenespartido3.jpeg" alt="Equipo">
-        <figcaption>Quinto vs Sexto</figcaption>
+        <figcaption>Alexander Desseff,Mejor arquero del torneo final 2024</figcaption>
       </figure>
       <figure>
         <img src="imagenesfestejo.jpeg" alt="Festejo">
-        <figcaption>Tirando magia...</figcaption>
+        <figcaption>Benjamin Landriel,Mejor jugador del torneo inicial 2024</figcaption>
       </figure>
     </div>
   </section>
@@ -208,12 +208,26 @@
         document.querySelector('[data-tab="carga"]').style.display='block';
         document.getElementById('logoutBtn').style.display='inline-block';
         alert('Bienvenido, Admin');
+        if (!document.getElementById('btnReset')) {
+      const btnReset = document.createElement('button');
+      btnReset.id = 'btnReset';
+      btnReset.textContent = 'Vaciar Storage';
+      document.body.appendChild(btnReset);
+      btnReset.addEventListener('click', () => {
+        localStorage.clear();
+        window.location.reload();
+      });
+    }
       } else alert('Usuario o clave incorrecta');
     };
     document.getElementById('logoutBtn').onclick = () => {
       document.querySelector('[data-tab="carga"]').style.display='none';
       document.getElementById('logoutBtn').style.display='none';
       alert('Sesión cerrada');
+      document.getElementById('btnReset').addEventListener('click', () => {
+       localStorage.clear();              // limpia todo
+      window.location.reload();          // recarga página
+});
     };
 
     const jugadoresIniciales = [
@@ -246,7 +260,7 @@
       { equipo: "Tercero", nombre: "Santiago Esparza" },
       { equipo: "Tercero", nombre: "Sebastián Godoy" },
       { equipo: "Cuarto", nombre: "Gabriel Ochicua" },
-      { equipo: "Cuarto", nombre: "Lautaro Lezcano" },
+      { equipo: "Cuarto", nombre: "Lautaro Lescano" },
       { equipo: "Cuarto", nombre: "Fabrizio Garay" },
       { equipo: "Cuarto", nombre: "Kevin Flores" },
       { equipo: "Cuarto", nombre: "Kiara Sotelo" },
@@ -254,9 +268,9 @@
       { equipo: "Cuarto", nombre: "Valentín Ovejero" },
       { equipo: "Quinto", nombre: "Renzo Figueredo" },
       { equipo: "Quinto", nombre: "Genaro Chumbita" },
-      { equipo: "Quinto", nombre: "Gianluca Chumbita" },
+      { equipo: "Quinto", nombre: "Gianluca ChumbitaJR" },
       { equipo: "Quinto", nombre: "Benjamin Landriel" },
-      { equipo: "Quinto", nombre: "Joaquín Ybañez" },
+      { equipo: "Quinto", nombre: "Joaquín Ibañez" },
       { equipo: "Quinto", nombre: "Agustín Romero" },
       { equipo: "Quinto", nombre: "Emiliano Casafus" },
       { equipo: "Quinto", nombre: "Thiago Coria" },
@@ -282,11 +296,14 @@
     function renderFixture() {
       const cont = document.getElementById('proximosPartidos');
       cont.innerHTML = `
-        <div class="match-card"><span>Quinto Vs Cuarto</span><span>Fecha: 07/05</span><span>Hora: 15:00</span></div>
-        <div class="match-card"><span>Sexto Vs Segundo(B)</span><span>Fecha: 08/05</span><span>Hora: 16:00</span></div>
-        <div class="match-card"><span>Tercero Vs Segundo</span><span>Fecha: 09/05</span><span>Hora: 16:00</span></div>
-        <div class="match-card"><span>Primero B Vs Primero</span><span>Fecha: 21/05</span><span>Hora: 15:00</span></div>
-        <div class="match-card"><span>Cuarto Vs Quinto</span><span>Fecha: 22/05</span><span>Hora: 16:00</span></div>
+        <div class="match-card"><span>Quinto Vs Cuarto</span><span>Fecha: 07/05 IDA</span><span>Hora: 14:00</span></div>
+        <div class="match-card"><span>Sexto Vs Segundo(B)</span><span>Fecha: 08/05 IDA</span><span>Hora: 14:00</span></div>
+        <div class="match-card"><span>Tercero Vs Segundo</span><span>Fecha: 14/05 IDA</span><span>Hora: 16:00</span></div>
+        <div class="match-card"><span>Primero B Vs Primero</span><span>Fecha: 21/05 IDA</span><span>Hora: 14:00</span></div>
+        <div class="match-card"><span>Cuarto Vs Quinto</span><span>Fecha: 21/05 VUELTA</span><span>Hora: 14:00</span></div>
+        <div class="match-card"><span>Sexto Vs Segundo(B)</span><span>Fecha: 22/05 VUELTA</span><span>Hora: 14:00</span></div>
+        <div class="match-card"><span>Tercero Vs Segundo</span><span>Fecha: 23/05 VUELTA</span><span>Hora: 16:00</span></div>
+        <div class="match-card"><span>Primero B Vs Primero</span><span>Fecha: 28/05 VUELTA</span><span>Hora: 14:00</span></div>
       `;
     }
 
@@ -296,7 +313,7 @@
       list.innerHTML=''; tbPos.innerHTML='';
       const acc={};
       partidos.forEach(p=>{
-        list.innerHTML+=`<div class="match-card"><span>${p.local} ${p.res} ${p.visita}</span><span>Valla: ${p.valla? 'Sí':'No'}</span></div>`;
+        list.innerHTML+=`<div class="match-card"><span>${p.local} ${p.res} ${p.visita}</span></div>`;
         [p.local,p.visita].forEach(eq=>{
           if(!acc[eq]) acc[eq]={PJ:0,PG:0,PE:0,PP:0,GF:0,GC:0,PTS:0};
           acc[eq].PJ++;
