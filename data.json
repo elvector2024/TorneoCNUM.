@@ -1,0 +1,58 @@
+{
+  "partidos": [],
+  "mvpData": {
+    "Britez":   { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Silva":    { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Albarracín": { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Nieto":    { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Vera":     { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Solis":    { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Sosa":     { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Ojeda":    { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Batista":  { "equipo": "Primero", "g": 0, "a": 0, "t": 0, "v": 0 },
+
+    "Velasquez":  { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Gigena":     { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Arufe":      { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Protti":     { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Guayama":    { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Orellano":   { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Bussu":      { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Villalba":   { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Pogonza":    { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Dávalos":    { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Gutiérrez":  { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Cuspodus":   { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Duarte":     { "equipo": "Segundo", "g": 0, "a": 0, "t": 0, "v": 0 },
+
+    "Godoy":      { "equipo": "Tercero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "González":   { "equipo": "Tercero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Giménez":    { "equipo": "Tercero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Esparza":    { "equipo": "Tercero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Godoy":      { "equipo": "Tercero", "g": 0, "a": 0, "t": 0, "v": 0 },
+    
+    "Ochicua":    { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Lescano":    { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Garay":      { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Flores":     { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Sotelo":     { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "González":   { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Ovejero":    { "equipo": "Cuarto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+
+    "Figueredo":  { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Chumbita":   { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "ChumbitaJR": { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Landriel":   { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Ibañez":     { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Romero":     { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Casafus":    { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Coria":      { "equipo": "Quinto",  "g": 0, "a": 0, "t": 0, "v": 0 },
+
+    "Colman":     { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Leiva":      { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Maldonado":  { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Silveira":   { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Cejas":      { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 },
+    "Buse":       { "equipo": "Sexto",   "g": 0, "a": 0, "t": 0, "v": 0 }
+  }
+}
